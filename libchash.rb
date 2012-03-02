@@ -1,6 +1,6 @@
 require 'formula'
 
-class Chash < Formula
+class Libchash < Formula
   homepage 'https://github.com/dailymotion/chash'
   url 'https://github.com/dailymotion/chash/tarball/1.0.1'
   md5 '24eb0e3748d50b3d62efd6841703ccb7'
