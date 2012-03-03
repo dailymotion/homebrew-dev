@@ -1,7 +1,7 @@
 require 'formula'
 
 class Flex < Formula
-  url 'https://github.com/downloads/dailymotion/homebrew/flex_sdk_4.5.0.19786.zip'
+  url 'https://github.com/downloads/dailymotion/homebrew/flex_4.5.0.19786.zip'
   homepage 'http://opensource.adobe.com/wiki/display/flexsdk/Flex+SDK'
   md5 'a59a289a2c98c9b5d1749d38fef02abc'
 
