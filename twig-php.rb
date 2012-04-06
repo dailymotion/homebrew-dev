@@ -6,7 +6,7 @@ require 'formula'
 class TwigPhp < Formula
   homepage 'http://twig.sensiolabs.org/'
   url 'https://github.com/fabpot/Twig/tarball/v1.6.4'
-  md5 '83aacddb3ef1053b0680cdebbe23a045'
+  md5 '78d4c7085b4eff23472821db5e897820'
 
   def install
     cd "ext/twig" do
