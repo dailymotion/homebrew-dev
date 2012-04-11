@@ -8,8 +8,11 @@ class HandlersocketPhp < Formula
   depends_on 'libhsclient'
 
   def install
+    libhsclient_prefix = Formula.factory('libhsclient').prefix
     system "phpize"
-    system "./configure", "--prefix=#{prefix}"
+    system "./configure", "--prefix=#{prefix}",
+                          "--with-handlersocket-includedir=#{libhsclient_prefix}",
+                          "--disable-handlersocket-hsclient"
     system "make install"
   end
 end
