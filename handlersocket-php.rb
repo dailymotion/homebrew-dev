@@ -13,6 +13,7 @@ class HandlersocketPhp < Formula
     system "./configure", "--prefix=#{prefix}",
                           "--with-handlersocket-includedir=#{libhsclient_prefix}",
                           "--disable-handlersocket-hsclient"
-    system "make install"
+    system "make"
+    prefix.install 'modules/handlersocket.so'
   end
 end
