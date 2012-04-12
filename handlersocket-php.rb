@@ -11,8 +11,7 @@ class HandlersocketPhp < Formula
     libhsclient_prefix = Formula.factory('libhsclient').prefix
     system "phpize"
     system "./configure", "--prefix=#{prefix}",
-                          "--with-handlersocket-includedir=#{libhsclient_prefix}",
-                          "--disable-handlersocket-hsclient"
+                          "--with-handlersocket-includedir=#{libhsclient_prefix}/include/handlersocket"
     system "make"
     prefix.install 'modules/handlersocket.so'
   end
