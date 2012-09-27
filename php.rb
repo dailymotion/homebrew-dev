@@ -9,10 +9,10 @@ def postgres_installed?
 end
 
 class Php < Formula
-  url 'http://www.php.net/get/php-5.3.10.tar.bz2/from/this/mirror'
+  url 'http://www.php.net/get/php-5.3.16.tar.bz2/from/this/mirror'
   homepage 'http://php.net/'
-  md5 '816259e5ca7d0a7e943e56a3bb32b17f'
-  version '5.3.10'
+  md5 '99cfd78531643027f60c900e792d21be'
+  version '5.3.16'
 
   devel do
     url 'http://downloads.php.net/stas/php-5.4.0RC8.tar.gz'
@@ -25,10 +25,11 @@ class Php < Formula
 
   depends_on 'gettext'
   depends_on 'readline' unless ARGV.include? '--without-readline'
-  depends_on 'libxml2'
+  depends_on 'libxml2' unless MacOS.version >= :mountain_lion
   depends_on 'jpeg'
   depends_on 'mcrypt'
   depends_on 'gmp' if ARGV.include? '--with-gmp'
+  depends_on 'curl' if MacOS.version >= :mountain_lion
 
   depends_on 'libevent' if ARGV.include? '--with-fpm'
   depends_on 'freetds'if ARGV.include? '--with-mssql'
@@ -72,6 +73,7 @@ class Php < Formula
     args = [
       "--prefix=#{prefix}",
       "--disable-debug",
+      "--disable-png",
       "--with-config-file-path=#{etc}",
       "--with-config-file-scan-dir=#{etc}/php5/conf.d",
       "--with-iconv-dir=/usr",
@@ -97,26 +99,23 @@ class Php < Formula
       "--with-openssl=/usr",
       "--with-zlib=/usr",
       "--with-bz2=/usr",
-      "--with-ldap",
-      "--with-ldap-sasl=/usr",
       "--with-xmlrpc",
       "--with-iodbc",
       "--with-kerberos=/usr",
-      "--with-libxml-dir=#{Formula.factory('libxml2').prefix}",
       "--with-xsl=/usr",
-      "--with-curl=/usr",
-      "--with-gd",
-      "--enable-gd-native-ttf",
-      "--with-freetype-dir=/usr/X11",
+      "--with-curl=#{Formula.factory('curl').prefix}",
       "--with-mcrypt=#{Formula.factory('mcrypt').prefix}",
       "--with-jpeg-dir=#{Formula.factory('jpeg').prefix}",
-      "--with-png-dir=/usr/X11",
       "--with-gettext=#{Formula.factory('gettext').prefix}",
       "--with-snmp=/usr",
       "--with-tidy",
       "--with-mhash",
       "--mandir=#{man}"
     ]
+
+    unless MacOS.version >= :mountain_lion
+      args << "--with-libxml-dir=#{Formula.factory('libxml2').prefix}"
+    end
 
     args.push "--with-gmp" if ARGV.include? '--with-gmp'
 
@@ -159,6 +158,11 @@ class Php < Formula
 
     system "./configure", *args
 
+    # https://bugs.php.net/bug.php?id=62460
+    inreplace "Makefile",
+              'EXEEXT = .dSYM',
+              'EXEEXT = '
+
     unless ARGV.include? '--without-apache' or ARGV.include? '--with-cgi' or ARGV.include? '--with-fpm'
       # Use Homebrew prefix for the Apache libexec folder
       inreplace "Makefile",
@@ -197,25 +201,25 @@ end
 
 
 __END__
-diff -Naur php-5.3.2/ext/tidy/tidy.c php/ext/tidy/tidy.c 
+diff -Naur php-5.3.2/ext/tidy/tidy.c php/ext/tidy/tidy.c
 --- php-5.3.2/ext/tidy/tidy.c	2010-02-12 04:36:40.000000000 +1100
 +++ php/ext/tidy/tidy.c	2010-05-23 19:49:47.000000000 +1000
 @@ -22,6 +22,8 @@
  #include "config.h"
  #endif
- 
+
 +#include "tidy.h"
 +
  #include "php.h"
  #include "php_tidy.h"
- 
+
 @@ -31,7 +33,6 @@
  #include "ext/standard/info.h"
  #include "safe_mode.h"
- 
+
 -#include "tidy.h"
  #include "buffio.h"
- 
+
  /* compatibility with older versions of libtidy */
 
 --- a/ext/mssql/php_mssql.h	2010-12-31 21:19:59.000000000 -0500
