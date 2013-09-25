@@ -3,7 +3,7 @@ require 'formula'
 class Libhsclient < Formula
   homepage 'https://github.com/dailymotion/chash'
   url 'https://github.com/DeNA/HandlerSocket-Plugin-for-MySQL/tarball/1.1.0'
-  md5 '2865bc609df77209272fb7a7be80284a'
+  md5 '398d625ee2b9930778c3d0840d25e5da'
 
   depends_on "libtool"
   depends_on "automake"
