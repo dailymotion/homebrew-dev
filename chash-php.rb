@@ -9,6 +9,7 @@ class ChashPhp < Formula
   depends_on "automake"
   depends_on "pkg-config"
   depends_on "libchash"
+  depends_on "php55"
 
   def install
     cd "php" do

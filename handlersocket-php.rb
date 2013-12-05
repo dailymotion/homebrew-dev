@@ -6,6 +6,7 @@ class HandlersocketPhp < Formula
   md5 '87689883a01fd9bc8b0467c0bd96cf6a'
 
   depends_on 'libhsclient'
+  depends_on 'php55'
 
   def install
     libhsclient_prefix = Formula.factory('libhsclient').prefix
