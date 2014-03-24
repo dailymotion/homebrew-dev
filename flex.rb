@@ -6,8 +6,23 @@ class Flex < Formula
   sha1 '59dbd6c3d0baa8829e4c6101cd1166e85d2a3c0a'
   version 'v4.12.0'
 
+  option 'with-playerglobal', "Also installs playerglobal.swc"
+
   def install
     Dir['*'].each { |file| cp_r file, File.join( prefix, File.basename(file) ) }
+
+    if build.with? 'playerglobal'
+
+      (prefix/'framework/libs/player/12.0').mkpath
+      resource("flash-playerglobal").fetch
+      (prefix/'frameworks/libs/player/12.0').install resource("flash-playerglobal").cached_download => 'playerglobal.swc'
+    end
+  end
+
+  resource "flash-playerglobal" do
+    url 'http://download.macromedia.com/get/flashplayer/updaters/12/playerglobal12_0.swc'
+    sha1 '23c04ac02e61e5b44806749060abe39bf79536a9'
+    version '12.0'
   end
 
 
@@ -26,6 +41,13 @@ class Flex < Formula
       ln -s $(brew --prefix flex)/ant/lib/flexTasks.jar ~/.ant/lib
 
     EOS
+    if build.with? 'playerglobal'
+      s += <<-EOS.undent
+      (d) set $PLAYERGLOBAL_HOME:
+        export PLAYERGLOBAL_HOME=$(brew --prefix flex)/frameworks/libs/player
+
+      EOS
+    end
     s
   end
 end
