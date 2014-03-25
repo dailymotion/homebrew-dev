@@ -16,6 +16,10 @@ class Flex < Formula
       (prefix/'framework/libs/player/12.0').mkpath
       resource("flash-playerglobal").fetch
       (prefix/'frameworks/libs/player/12.0').install resource("flash-playerglobal").cached_download => 'playerglobal.swc'
+
+      inreplace (prefix/'frameworks/flex-config.xml') do |s|
+        s.gsub! /<target-player>11.1<\/target-player>/, "<target-player>12.0</target-player>"
+      end
     end
   end
 
