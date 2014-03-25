@@ -4,7 +4,7 @@ class Flex < Formula
   url 'http://mir2.ovh.net/ftp.apache.org/dist/flex/4.12.0/binaries/apache-flex-sdk-4.12.0-bin.tar.gz'
   homepage 'http://flex.apache.org/download-binaries.html'
   sha1 '59dbd6c3d0baa8829e4c6101cd1166e85d2a3c0a'
-  version 'v4.12.0'
+  version '4.12.0'
 
   option 'with-playerglobal', "Also installs playerglobal.swc"
 
