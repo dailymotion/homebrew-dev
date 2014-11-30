@@ -1,10 +1,10 @@
 require 'formula'
 
 class Flex < Formula
-  url 'http://mir2.ovh.net/ftp.apache.org/dist/flex/4.12.1/binaries/apache-flex-sdk-4.12.1-bin.tar.gz'
+  url 'http://apache.websitebeheerjd.nl/flex/4.13.0/binaries/apache-flex-sdk-4.13.0-bin.tar.gz'
   homepage 'http://flex.apache.org/download-binaries.html'
-  sha1 '9d14529a607cd8260f4b37557f8989307fa5e7b9'
-  version '4.12.1'
+  sha1 'd1dbe36fc48b7a800ca2fa9733bc547ab08cee93'
+  version '4.13.0'
 
   option 'with-playerglobal', "Also installs playerglobal.swc"
 
