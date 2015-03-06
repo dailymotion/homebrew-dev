@@ -1,10 +1,10 @@
 require 'formula'
 
 class Flex < Formula
-  url 'http://apache.websitebeheerjd.nl/flex/4.13.0/binaries/apache-flex-sdk-4.13.0-bin.tar.gz'
+  url 'http://apache.websitebeheerjd.nl/flex/4.14.0/binaries/apache-flex-sdk-4.14.0-bin.tar.gz'
   homepage 'http://flex.apache.org/download-binaries.html'
-  sha1 'd1dbe36fc48b7a800ca2fa9733bc547ab08cee93'
-  version '4.13.0'
+  sha1 '9aeb305290a228077379855bc069b56bc98b6002'
+  version '4.14.0'
 
   option 'with-playerglobal', "Also installs playerglobal.swc"
 
@@ -12,19 +12,19 @@ class Flex < Formula
     Dir['*'].each { |file| cp_r file, File.join( prefix, File.basename(file) ) }
 
     if build.with? 'playerglobal'
-      (prefix/'framework/libs/player/13.0').mkpath
+      (prefix/'framework/libs/player/14.0').mkpath
       resource("flash-playerglobal").fetch
-      (prefix/'frameworks/libs/player/13.0').install resource("flash-playerglobal").cached_download => 'playerglobal.swc'
+      (prefix/'frameworks/libs/player/14.0').install resource("flash-playerglobal").cached_download => 'playerglobal.swc'
 
       inreplace (prefix/'frameworks/flex-config.xml') do |s|
-        s.gsub! /<target-player>11.1<\/target-player>/, "<target-player>13.0</target-player>"
+        s.gsub! /<target-player>11.1<\/target-player>/, "<target-player>14.0</target-player>"
       end
     end
   end
 
   resource "flash-playerglobal" do
-    url 'http://download.macromedia.com/get/flashplayer/updaters/13/playerglobal13_0.swc'
-    version '13.0'
+    url 'http://download.macromedia.com/get/flashplayer/updaters/14/playerglobal14_0.swc'
+    version '14.0'
   end
 
 
